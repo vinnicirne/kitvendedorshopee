@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kit do Vendedor Shopee – Calculadora e Precificação</title>
+<style>
+:root{--bg:#faf7f5;--card:#fff;--tx:#1f1b18;--mu:#6b625c;--bd:#e8e0da;--pr:#ee4d2d;--ok:#15803d;--okb:#dcfce7;--no:#b91c1c;--nob:#fee2e2;--wa:#a16207;--wab:#fef3c7;--in:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17130f;--card:#221c17;--tx:#f5efe9;--mu:#a89e96;--bd:#3a312a;--pr:#ff6b4a;--ok:#4ade80;--okb:#12301d;--no:#f87171;--nob:#3a1717;--wa:#fbbf24;--wab:#33280b;--in:#2b241e}}
+:root[data-theme="dark"]{--bg:#17130f;--card:#221c17;--tx:#f5efe9;--mu:#a89e96;--bd:#3a312a;--pr:#ff6b4a;--ok:#4ade80;--okb:#12301d;--no:#f87171;--nob:#3a1717;--wa:#fbbf24;--wab:#33280b;--in:#2b241e}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:980px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:8px 0 2px}.sub{color:var(--mu);margin:0 0 14px}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px}
+.tabs button{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:9px 14px;border-radius:999px;font:inherit;cursor:pointer;white-space:nowrap}
+.tabs button.on{background:var(--pr);border-color:var(--pr);color:#fff;font-weight:600}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:720px){.g{grid-template-columns:1fr}}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px}
+.c h2{font-size:1rem;margin:0 0 10px}
+label{display:block;font-size:.82rem;color:var(--mu);margin:9px 0 3px}
+input[type=text],input[type=number]{width:100%;padding:9px 10px;border:1px solid var(--bd);border-radius:9px;background:var(--in);color:var(--tx);font:inherit}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chk{display:flex;gap:8px;align-items:center;margin-top:10px;font-size:.88rem}
+.badge{border-radius:12px;padding:14px;text-align:center;margin-bottom:12px}
+.badge b{display:block;font-size:1.9rem}
+.ok{background:var(--okb);color:var(--ok)}.no{background:var(--nob);color:var(--no)}.wa{background:var(--wab);color:var(--wa)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+td,th{padding:6px 4px;border-bottom:1px solid var(--bd);text-align:right}
+td:first-child,th:first-child{text-align:left}
+.sc{overflow-x:auto}
+.bar{display:flex;height:16px;border-radius:8px;overflow:hidden;margin:8px 0;background:var(--bd)}
+.bar i{display:block;height:100%}
+.lg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.78rem;color:var(--mu)}
+.lg span:before{content:"";display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;background:var(--k)}
+.pr{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.pr div{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px}
+.pr small{color:var(--mu);display:block}.pr b{font-size:1.15rem}
+.note{font-size:.8rem;color:var(--mu);margin-top:10px}
+.hid{display:none}.btn{margin-top:12px;padding:9px 14px;border-radius:9px;border:0;background:var(--pr);color:#fff;font:inherit;font-weight:600;cursor:pointer}.x{background:none;border:0;color:var(--no);cursor:pointer;font-size:1rem}
+ul.t{padding-left:18px;margin:6px 0}ul.t li{margin:6px 0}
+.bd{color:var(--no);font-weight:600}.gd{color:var(--ok);font-weight:600}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>🛍️ Kit do Vendedor Shopee</h1>
+<p class="sub">Descubra se você está tendo lucro ou prejuízo e qual preço cobrar.</p>
+<div class="tabs" id="tabs">
+<button class="on" data-t="calc">Calculadora</button>
+<button data-t="prod">Meus produtos</button>
+<button data-t="kit">Kits e promoções</button>
+<button data-t="tab">Taxas Shopee</button>
+<button data-t="dicas">Guia rápido</button>
+</div>
+
+<section id="calc">
+<div class="g">
+<div class="c">
+<h2>Dados do produto</h2>
+<div class="r2">
+<div><label>Preço de venda (R$)</label><input type="number" id="preco" value="59.90" step="0.01" min="0"></div>
+<div><label>Custo do produto (R$)</label><input type="number" id="custo" value="22" step="0.01" min="0"></div>
+<div><label>Embalagem (R$)</label><input type="number" id="emb" value="1.50" step="0.01" min="0"></div>
+<div><label>Outros custos/pedido (R$)</label><input type="number" id="out" value="0" step="0.01" min="0"></div>
+<div><label>Imposto (% do preço)</label><input type="number" id="imp" value="0" step="0.1" min="0"></div>
+<div><label>Anúncios Ads (% do preço)</label><input type="number" id="ads" value="0" step="0.1" min="0"></div>
+<div><label>Afiliados (% do preço)</label><input type="number" id="afi" value="0" step="0.1" min="0"></div>
+<div><label>Reserva devoluções (%)</label><input type="number" id="dev" value="2" step="0.1" min="0"></div>
+<div><label>Cupom do vendedor (% do preço)</label><input type="number" id="cup" value="0" step="0.1" min="0"></div>
+<div><label>Frete subsidiado (R$/pedido)</label><input type="number" id="fre" value="0" step="0.01" min="0"></div>
+</div>
+<label class="chk"><input type="checkbox" id="cpf"> Sou CPF com mais de 450 pedidos em 90 dias (+R$ 3 por item)</label>
+<label class="chk"><input type="checkbox" id="ace"> Uso o Shopee Acelera (antecipação do repasse)</label>
+<label>Taxa do Shopee Acelera (% sobre o valor antecipado)</label><input type="number" id="acet" value="3.5" step="0.1" min="0">
+<p class="note">Referência pública: 2% para Vendedor Indicado e 3,5% para os demais. Confira o percentual exato na sua Central do Vendedor. A calculadora aplica a taxa sobre o repasse (preço − comissão − taxa fixa).</p>
+<label>Margem de lucro desejada (%)</label>
+<input type="number" id="mg" value="20" step="1" min="0" max="80">
+<p class="note">Dica: MEI/Simples? Coloque aqui a alíquota que você paga sobre a venda (ex.: 4). Se não paga imposto, deixe 0.</p>
+</div>
+
+<div>
+<div class="c" id="res">
+<div class="badge" id="bdg"></div>
+<div class="bar" id="bar"></div>
+<div class="lg" id="lg"></div>
+<table id="det"></table>
+<div class="pr">
+<div><small>Preço mínimo (lucro zero)</small><b id="pmin"></b></div>
+<div><small>Preço p/ margem desejada</small><b id="pmg"></b></div>
+</div>
+</div>
+<div class="c" style="margin-top:14px">
+<h2>Mapa de preços</h2>
+<div class="sc"><table id="map"></table></div>
+<p class="note">Veja como o lucro muda se você subir ou baixar o preço. Cuidado com as faixas: ao passar de R$ 80, a taxa fixa dá um salto.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="prod" class="hid"><div class="c"><h2>Meus produtos</h2>
+<p class="note" style="margin-top:0">Cadastre seus produtos e veja de uma vez quais dão lucro e quais dão prejuízo. Usa as configurações da Calculadora (embalagem, imposto, Ads, Acelera, cupom, frete). Os dados ficam salvos neste navegador.</p>
+<div class="r2"><div><label>Produto</label><input type="text" id="pn" placeholder="Ex.: Capa de celular"></div><div></div><div><label>Preço (R$)</label><input type="number" id="pp" step="0.01"></div><div><label>Custo (R$)</label><input type="number" id="pc" step="0.01"></div></div>
+<button class="btn" id="padd">Adicionar produto</button>
+<p class="note" id="psum"></p><div class="sc"><table id="plist"></table></div></div></section>
+
+<section id="kit" class="hid"><div class="g">
+<div class="c"><h2>Kits: leve mais e dilua a taxa fixa</h2>
+<label>Desconto no kit (% sobre o preço unitário)</label><input type="number" id="kd" value="5" step="1" min="0">
+<div class="sc"><table id="ktab"></table></div>
+<p class="note">Usa o preço e o custo da Calculadora. A embalagem conta uma vez por kit. Kits acima de R$ 80 mudam de faixa de taxa.</p></div>
+<div class="c"><h2>Promoção e desconto</h2>
+<div class="sc"><table id="dtab"></table></div>
+<div class="pr"><div><small>Desconto máximo sem prejuízo</small><b id="dmax"></b></div><div><small>Desconto máx. mantendo a margem desejada</small><b id="dmg"></b></div></div>
+<p class="note">Antes de entrar em campanha, veja até onde dá para baixar o preço.</p></div>
+</div></section>
+
+<section id="tab" class="hid">
+<div class="c">
+<h2>Tabela de comissão (editável)</h2>
+<p class="note" style="margin-top:0">Valores de referência baseados em fontes públicas (vigentes desde março/2026; taxa fixa até R$ 79,99 reportada a R$ 4,50 desde 1º/10). A Shopee muda as regras com frequência: <b>confira na sua Central do Vendedor</b> e ajuste abaixo. A calculadora usa esta tabela. A taxa de transação já está incluída na comissão.</p>
+<div class="sc"><table id="ft"></table></div>
+<button id="rst" style="margin-top:12px;padding:8px 14px;border-radius:9px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer">Restaurar valores de referência</button>
+</div>
+</section>
+
+<section id="dicas" class="hid">
+<div class="g">
+<div class="c"><h2>Como a conta é feita</h2>
+<ul class="t">
+<li><b>Lucro = Preço − Taxas Shopee − Custo − Embalagem − Impostos − Ads − Afiliados − Reserva</b></li>
+<li>Taxas Shopee = comissão (%) + taxa fixa por item + Shopee Acelera, se você usa.</li>
+<li>Não entram automaticamente: frete subsidiado ou excedente de peso, taxa de R$ 10 por devolução causada pelo vendedor e cupons. Lance esses valores em “Outros custos” ou na “Reserva devoluções”.</li>
+<li>Margem = Lucro ÷ Preço de venda.</li>
+<li>Se o lucro ficar negativo, cada venda <span class="bd">te custa dinheiro</span>.</li>
+</ul></div>
+<div class="c"><h2>Erros que geram prejuízo</h2>
+<ul class="t">
+<li>Olhar só o percentual e esquecer a taxa fixa por item.</li>
+<li>Não contar embalagem, imposto, devoluções e anúncios.</li>
+<li>Vender produto muito barato: a taxa fixa pesa demais.</li>
+<li>Usar o preço antigo depois de mudanças nas regras.</li>
+<li>Dar cupom/desconto sem recalcular a margem.</li>
+</ul></div>
+<div class="c"><h2>Como melhorar a margem</h2>
+<ul class="t">
+<li>Monte <b>kits</b> (2 ou 3 unidades) para diluir a taxa fixa.</li>
+<li>Negocie o custo com fornecedores em quantidade.</li>
+<li>Use embalagem sob medida, mais barata e leve.</li>
+<li>Teste preços um pouco acima: veja o Mapa de preços.</li>
+<li>Invista em Ads só em produtos com margem folgada.</li>
+</ul></div>
+<div class="c"><h2>Rotina semanal</h2>
+<ul class="t">
+<li>Revise o preço dos 10 produtos mais vendidos.</li>
+<li>Pause produtos com lucro abaixo de zero.</li>
+<li>Atualize o custo sempre que o fornecedor mudar.</li>
+<li>Confira avisos de taxas na Central do Vendedor.</li>
+<li>Cadastre tudo em Meus produtos e corte quem está no vermelho.</li>
+<li>Antes de campanhas e cupons, use Kits e promoções.</li>
+</ul></div>
+</div>
+<p class="note">Esta ferramenta é uma estimativa e não substitui orientação contábil. Frete subsidiado, categorias e campanhas podem alterar o resultado final.</p>
+</section>
+</div>
+
+<script>
+var DEF=[[0,20,4.5],[80,14,16],[100,14,20],[200,14,26]];
+var T=JSON.parse(JSON.stringify(DEF));
+var $=function(i){return document.getElementById(i)};
+var R=function(v){return (isFinite(v)?v:0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"})};
+var N=function(i){var v=parseFloat($(i).value);return isFinite(v)?v:0};
+function tier(p){var t=T[0];for(var i=0;i<T.length;i++){if(p>=T[i][0])t=T[i]}return t}
+function calc(p,q,c){
+var t=tier(p),cpf=$("cpf").checked?3:0;
+var o={com:p*t[1]/100,fix:t[2]+cpf,cus:(c==null?N("custo"):c)*(q||1),emb:N("emb"),out:N("out"),imp:p*N("imp")/100,ads:p*N("ads")/100,afi:p*N("afi")/100,dev:p*N("dev")/100,cup:p*N("cup")/100,fre:N("fre")};
+o.ace=$("ace").checked?(p-o.com-o.fix)*N("acet")/100:0;o.lucro=p-o.com-o.fix-o.ace-o.cus-o.emb-o.out-o.imp-o.ads-o.afi-o.dev-o.cup-o.fre;
+o.mg=p>0?o.lucro/p*100:0;return o}
+function solve(m){
+var v=(N("imp")+N("ads")+N("afi")+N("dev")+N("cup"))/100,cpf=$("cpf").checked?3:0,k=$("ace").checked?N("acet")/100:0,base=N("custo")+N("emb")+N("out")+N("fre");
+for(var i=0;i<T.length;i++){
+var c=T[i][1]/100,A=c+k*(1-c)+v+m/100;if(A>=1)continue;
+var P=(base+(T[i][2]+cpf)*(1-k))/(1-A),nx=i+1<T.length?T[i+1][0]:Infinity;
+P=Math.max(P,T[i][0]);if(P<nx)return Math.ceil(P*100)/100}
+return null}
+function render(){
+var p=N("preco"),o=calc(p),b=$("bdg");
+var cls=o.lucro<-0.005?"no":(o.mg<10?"wa":"ok");
+b.className="badge "+cls;
+var msg=o.lucro<-0.005?"❌ Você está no PREJUÍZO":(o.mg<10?"⚠️ Lucro baixo":"✅ Você tem LUCRO");
+b.innerHTML=msg+"<b>"+R(o.lucro)+" por venda</b>Margem de "+o.mg.toFixed(1).replace(".",",")+"%";
+var parts=[["Shopee (comissão, taxa fixa, Acelera)",o.com+o.fix+o.ace,"#ee4d2d"],["Produto",o.cus,"#6366f1"],["Embalagem/outros",o.emb+o.out+o.fre,"#14b8a6"],["Imposto/Ads/Afiliados/Reserva",o.imp+o.ads+o.afi+o.dev+o.cup,"#f59e0b"],["Lucro",Math.max(o.lucro,0),"#22c55e"]];
+var tot=parts.reduce(function(s,x){return s+x[1]},0)||1;
+$("bar").innerHTML=parts.map(function(x){return '<i style="width:'+(x[1]/tot*100)+'%;background:'+x[2]+'"></i>'}).join("");
+$("lg").innerHTML=parts.map(function(x){return '<span style="--k:'+x[2]+'">'+x[0]+"</span>"}).join("");
+var rows=[["Preço de venda",p],["Comissão ("+tier(p)[1]+"%)",-o.com],["Taxa fixa por item",-o.fix],["Shopee Acelera",-o.ace],["Custo do produto",-o.cus],["Embalagem + outros",-(o.emb+o.out)],["Imposto",-o.imp],["Ads + afiliados",-(o.ads+o.afi)],["Reserva devoluções",-o.dev],["Cupom do vendedor",-o.cup],["Frete subsidiado",-o.fre]];
+$("det").innerHTML=rows.map(function(r){return "<tr><td>"+r[0]+"</td><td>"+R(r[1])+"</td></tr>"}).join("")+'<tr><th>Lucro</th><th class="'+(o.lucro<0?"bd":"gd")+'">'+R(o.lucro)+"</th></tr>";
+var a=solve(0),c=solve(N("mg"));
+$("pmin").textContent=a?R(a):"—";$("pmg").textContent=c?R(c):"inviável";
+var h="<tr><th>Preço</th><th>Lucro</th><th>Margem</th></tr>";
+[0.7,0.85,1,1.15,1.3,1.5].forEach(function(f){var q=Math.round(p*f*100)/100,x=calc(q);
+h+="<tr"+(f==1?' style="font-weight:700"':"")+"><td>"+R(q)+"</td><td class='"+(x.lucro<0?"bd":"gd")+"'>"+R(x.lucro)+"</td><td>"+x.mg.toFixed(1).replace(".",",")+"%</td></tr>"});
+$("map").innerHTML=h;extra()}
+function ftab(){
+var h="<tr><th>A partir de (R$)</th><th>Comissão %</th><th>Taxa fixa (R$)</th></tr>";
+T.forEach(function(r,i){h+="<tr><td>"+(i==0?"0 (base)":'<input type="number" data-i="'+i+'" data-j="0" value="'+r[0]+'">')+'</td><td><input type="number" data-i="'+i+'" data-j="1" value="'+r[1]+'" step="0.1"></td><td><input type="number" data-i="'+i+'" data-j="2" value="'+r[2]+'" step="0.01"></td></tr>'});
+$("ft").innerHTML=h}
+$("ft").addEventListener("input",function(e){var d=e.target.dataset;if(!d.i)return;var v=parseFloat(e.target.value);T[+d.i][+d.j]=isFinite(v)?v:0;render()});
+$("rst").onclick=function(){T=JSON.parse(JSON.stringify(DEF));ftab();render()};
+document.querySelectorAll("input").forEach(function(i){i.addEventListener("input",render)});
+$("tabs").addEventListener("click",function(e){var t=e.target.dataset.t;if(!t)return;
+document.querySelectorAll(".tabs button").forEach(function(b){b.classList.toggle("on",b===e.target)});
+["calc","prod","kit","tab","dicas"].forEach(function(s){$(s).classList.toggle("hid",s!==t)})});
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+var P=[];try{P=JSON.parse(localStorage.getItem("shp")||"[]")}catch(e){}
+function psv(){try{localStorage.setItem("shp",JSON.stringify(P))}catch(e){}}
+function plist(){var h="<tr><th>Produto</th><th>Preço</th><th>Custo</th><th>Lucro</th><th>Margem</th><th></th></tr>",nb=0,nl=0;
+P.forEach(function(r,i){var x=calc(r.p,1,r.c);if(x.lucro<0)nb++;else if(x.mg<10)nl++;
+h+="<tr><td>"+esc(r.n)+"</td><td>"+R(r.p)+"</td><td>"+R(r.c)+"</td><td class='"+(x.lucro<0?"bd":"gd")+"'>"+R(x.lucro)+"</td><td>"+x.mg.toFixed(1).replace(".",",")+"%</td><td><button class='x' data-d='"+i+"'>✕</button></td></tr>"});
+$("plist").innerHTML=P.length?h:"";
+$("psum").textContent=P.length?P.length+" produtos: "+nb+" no prejuízo e "+nl+" com margem abaixo de 10%.":"Nenhum produto cadastrado ainda."}
+$("padd").onclick=function(){var p=parseFloat($("pp").value);if(!(p>0))return;P.push({n:$("pn").value||"Produto "+(P.length+1),p:p,c:parseFloat($("pc").value)||0});psv();$("pn").value=$("pp").value=$("pc").value="";plist()};
+$("plist").addEventListener("click",function(e){var d=e.target.dataset.d;if(d==null)return;P.splice(+d,1);psv();plist()});
+function extra(){var p=N("preco"),d=N("kd")/100,mg=N("mg"),h="<tr><th>Qtd</th><th>Preço do kit</th><th>Lucro do kit</th><th>Lucro/un.</th></tr>";
+for(var q=1;q<=5;q++){var kp=Math.round(p*q*(q>1?1-d:1)*100)/100,x=calc(kp,q);h+="<tr><td>"+q+" un.</td><td>"+R(kp)+"</td><td class='"+(x.lucro<0?"bd":"gd")+"'>"+R(x.lucro)+"</td><td>"+R(x.lucro/q)+"</td></tr>"}
+$("ktab").innerHTML=h;
+h="<tr><th>Desconto</th><th>Preço</th><th>Lucro</th></tr>";
+[0,5,10,15,20,30].forEach(function(f){var q=Math.round(p*(1-f/100)*100)/100,x=calc(q);h+="<tr><td>"+f+"%</td><td>"+R(q)+"</td><td class='"+(x.lucro<0?"bd":"gd")+"'>"+R(x.lucro)+"</td></tr>"});
+$("dtab").innerHTML=h;
+var a=-1,b=-1,f,s1=0,s2=0;for(f=0;f<=99;f+=0.5){var y=calc(p*(1-f/100));if(!s1&&y.lucro>=0)a=f;else s1=1;if(!s2&&y.mg>=mg)b=f;else s2=1}
+$("dmax").textContent=a<0?"já no prejuízo":a+"%";$("dmg").textContent=b<0?"—":b+"%";plist()}
+ftab();render();
+</script>
+</body>
+</html>

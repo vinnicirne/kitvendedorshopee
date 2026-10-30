@@ -1,0 +1,282 @@
+/* ==========================================================================
+   Design & Estilos - Landing Page: Kit do Vendedor Shopee
+   ========================================================================== */
+
+:root {
+  --bg: #ffffff;
+  --alt: #f6f4f2;
+  --tx: #1f1b18;
+  --mu: #6b625c;
+  --bd: #e8e0da;
+  --pr: #f97316;
+  --ok: #15803d;
+  --no: #b91c1c;
+  --hero: #0f172a;
+  --in: #ffffff;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14110e;
+    --alt: #1d1814;
+    --tx: #f5efe9;
+    --mu: #a89e96;
+    --bd: #3a312a;
+    --ok: #4ade80;
+    --no: #f87171;
+    --in: #2b241e;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #14110e;
+  --alt: #1d1814;
+  --tx: #f5efe9;
+  --mu: #a89e96;
+  --bd: #3a312a;
+  --ok: #4ade80;
+  --no: #f87171;
+  --in: #2b241e;
+}
+
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--tx);
+  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+section {
+  padding: 48px 18px;
+}
+
+.alt {
+  background: var(--alt);
+}
+
+.w {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  line-height: 1.15;
+  margin: 0 0 14px;
+}
+
+h2 {
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  margin: 0 0 14px;
+  text-align: center;
+}
+
+.hero {
+  background: linear-gradient(160deg, #0f172a, #1e293b);
+  color: #ffffff;
+  text-align: center;
+}
+
+.hero p {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  max-width: 640px;
+  margin: 0 auto 22px;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--pr);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 5px 12px;
+  border-radius: 99px;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--pr);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 15px 30px;
+  border-radius: 99px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.btn:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.g {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.c {
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.alt .c {
+  background: var(--bg);
+}
+
+.c h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+
+.c p {
+  margin: 0;
+  color: var(--mu);
+  font-size: 0.95rem;
+}
+
+.sim {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+@media (max-width: 560px) {
+  .sim {
+    grid-template-columns: 1fr;
+  }
+}
+
+.r {
+  border-radius: 14px;
+  padding: 16px;
+  border: 2px solid;
+  text-align: center;
+}
+
+.r b {
+  display: block;
+  font-size: 1.7rem;
+}
+
+.r.o {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
+.r.x {
+  border-color: var(--no);
+  color: var(--no);
+}
+
+.mu {
+  color: var(--mu);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.demo {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--mu);
+  margin: 10px 0 3px;
+}
+
+input {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  background: var(--in);
+  color: var(--tx);
+  font: inherit;
+}
+
+#out {
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 700;
+  border: 2px solid var(--bd);
+  transition: all 0.2s ease;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+.price {
+  text-align: center;
+}
+
+.price .v {
+  font-size: 3.4rem;
+  font-weight: 800;
+  color: var(--pr);
+  line-height: 1.1;
+}
+
+.box {
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--bg);
+  border: 2px solid var(--pr);
+  border-radius: 18px;
+  padding: 26px;
+}
+
+details {
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 8px 0;
+  background: var(--bg);
+}
+
+summary {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+footer {
+  padding: 28px 18px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--mu);
+}
