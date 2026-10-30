@@ -280,3 +280,176 @@ footer {
   font-size: 0.8rem;
   color: var(--mu);
 }
+
+/* ==========================================================================
+   Prova Social & Depoimentos
+   ========================================================================== */
+
+.trust-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 0.84rem;
+  margin-bottom: 16px;
+  backdrop-filter: blur(4px);
+}
+
+.stars {
+  color: #fbbf24;
+  letter-spacing: 1px;
+}
+
+.stats-bar {
+  background: var(--card, var(--bg));
+  border-bottom: 1px solid var(--bd);
+  padding: 24px 18px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  text-align: center;
+}
+
+.stat-item b {
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--pr);
+  line-height: 1.1;
+  margin-bottom: 3px;
+}
+
+.stat-item span {
+  font-size: 0.85rem;
+  color: var(--mu);
+}
+
+.section-badge {
+  display: table;
+  margin: 0 auto 10px;
+  background: rgba(249, 115, 22, 0.12);
+  color: var(--pr);
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 4px 12px;
+  border-radius: 99px;
+  letter-spacing: 0.5px;
+}
+
+.section-sub {
+  text-align: center;
+  color: var(--mu);
+  max-width: 600px;
+  margin: -6px auto 28px;
+  font-size: 0.98rem;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 18px;
+}
+
+.review-card {
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+}
+
+.review-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--pr);
+  flex-shrink: 0;
+}
+
+.reviewer-info h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.reviewer-tag {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--mu);
+  margin-top: 2px;
+}
+
+.verified {
+  display: inline-block;
+  color: var(--ok);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+.review-text {
+  font-size: 0.93rem;
+  line-height: 1.55;
+  color: var(--tx);
+  margin: 0 0 16px;
+  font-style: italic;
+}
+
+.review-footer {
+  padding-top: 12px;
+  border-top: 1px dashed var(--bd);
+  font-size: 0.82rem;
+  color: var(--mu);
+}
+
+.review-impact strong {
+  color: var(--ok);
+  font-weight: 700;
+}
+
+.trust-badges-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  text-align: left;
+  font-size: 0.85rem;
+  color: var(--mu);
+  border-top: 1px solid var(--bd);
+  padding-top: 16px;
+}
+
+.trust-badges-list span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trust-badges-list svg, .trust-badges-list .icon {
+  color: var(--ok);
+  font-weight: bold;
+}
+
